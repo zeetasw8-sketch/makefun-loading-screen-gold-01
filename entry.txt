@@ -1,0 +1,1 @@
+Tip: when your agent retries the build for the 47th time, don't watch the logs — watch your token budget. It just spent 12,000 tokens fixing a typo you made in 3 seconds.
