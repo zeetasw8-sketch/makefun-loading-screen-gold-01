@@ -1,6 +1,8 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+const ENTRY_FILENAME = "entry.txt";
+
 function resolveDestination(): string {
   return process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 }
@@ -14,7 +16,7 @@ function buildTip(): string {
 function emit(): void {
   const folder = resolveDestination();
   mkdirSync(folder, { recursive: true });
-  const target = join(folder, "entry.txt");
+  const target = join(folder, ENTRY_FILENAME);
   writeFileSync(target, buildTip(), "utf8");
 }
 
