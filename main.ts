@@ -1,8 +1,21 @@
-import * as fs from "node:fs";
-import * as path from "node:path";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 
-const line = "Tip: when your agent retries the build for the 47th time, don't watch the logs \u2014 watch your token budget. It just spent 12,000 tokens fixing a typo you made in 3 seconds.";
+function resolveDestination(): string {
+  return process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+}
 
-const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
-fs.mkdirSync(outDir, { recursive: true });
-fs.writeFileSync(path.join(outDir, "entry.txt"), line.trim(), "utf8");
+function buildTip(): string {
+  const tip =
+    "Tip: when your agent retries the build for the 47th time, don't watch the logs \u2014 watch your token budget. It just spent 12,000 tokens fixing a typo you made in 3 seconds.";
+  return tip.trim();
+}
+
+function emit(): void {
+  const folder = resolveDestination();
+  mkdirSync(folder, { recursive: true });
+  const target = join(folder, "entry.txt");
+  writeFileSync(target, buildTip(), "utf8");
+}
+
+emit();
